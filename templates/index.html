@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>FreeSee — Home</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="{{ url_for('home') }}"><span class="play">▶</span> FreeSee</a>
+  <nav>
+    <a class="active" href="/">Home</a><a href="#movies">Movies</a><a href="#series">Series</a>
+    <a href="{{ url_for('upload') }}">Upload</a><a href="#settings">Settings</a>
+  </nav>
+  <div class="search"><span>⌕</span><input id="searchInput" placeholder="Search movies, series..."></div>
+  <button class="avatar">●</button>
+</header>
+
+<div class="layout">
+<aside class="sidebar">
+  <a class="side active" href="/">⌂ <span>Home</span></a>
+  <a class="side" href="#movies">▣ <span>Movies</span></a>
+  <a class="side" href="#series">▤ <span>Series</span></a>
+  <a class="side" href="{{ url_for('upload') }}">⇧ <span>Upload</span></a>
+  <a class="side" href="#settings">⚙ <span>Settings</span></a>
+  <h4>Categories</h4>
+  {% for c in ["Action","Comedy","Drama","Thriller","Horror","Romance","Sci-Fi","Animation"] %}
+    <a class="side category" data-category="{{ c }}" href="#">{{ c }}</a>
+  {% endfor %}
+</aside>
+
+<main class="content">
+<section class="hero">
+  <div class="hero-copy">
+    <span class="badge">FEATURED</span>
+    <h1>Watch Something<br><em>Amazing.</em></h1>
+    <p>Your own streaming platform. Upload videos, organize your library and let viewers watch online.</p>
+    <a class="btn primary" href="{{ url_for('upload') }}">▶ Upload / Add Video</a>
+    <a class="btn secondary" href="#movies">Browse Library</a>
+  </div>
+</section>
+
+<section class="section" id="movies">
+  <div class="section-title"><h2>🔥 Trending Now</h2><span>See All ›</span></div>
+  <div class="cards" id="videoGrid">
+    {% for v in videos %}
+    <article class="card" data-title="{{ v['title']|lower }}" data-category="{{ v['category']|lower }}">
+      <a href="{{ url_for('watch', video_id=v['id']) }}" class="thumb">
+        <video preload="metadata" muted src="{{ url_for('media', filename=v['filename']) }}"></video>
+        <span class="duration">▶ WATCH</span>
+      </a>
+      <h3>{{ v['title'] }}</h3>
+      <p>{{ v['category'] }} · {{ v['views'] }} views</p>
+    </article>
+    {% else %}
+    <div class="empty">No videos yet. <a href="{{ url_for('upload') }}">Upload your first video.</a></div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="section" id="series">
+  <div class="section-title"><h2>⭐ Popular Videos</h2><span>See All ›</span></div>
+  <div class="info-grid">
+    <div><strong>Unlimited library</strong><small>Add as many videos as your storage allows.</small></div>
+    <div><strong>Online playback</strong><small>HTML5 video player works in modern browsers.</small></div>
+    <div><strong>Easy uploads</strong><small>Upload MP4, WebM, OGG, MOV and M4V.</small></div>
+  </div>
+</section>
+</main>
+</div>
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

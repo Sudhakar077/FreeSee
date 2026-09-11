@@ -1,0 +1,12 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{{ video['title'] }} — FreeSee</title><link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"></head>
+<body>
+<header class="topbar"><a class="brand" href="/"><span class="play">▶</span> FreeSee</a><nav><a href="/">Home</a><a href="{{ url_for('upload') }}">Upload</a></nav></header>
+<main class="watch-page">
+<video class="player" controls autoplay src="{{ url_for('media', filename=video['filename']) }}"></video>
+<h1>{{ video['title'] }}</h1>
+<p class="watch-meta">{{ video['category'] }} · {{ video['views'] + 1 }} views</p>
+<p>{{ video['description'] }}</p>
+<a class="btn secondary" href="/">← Back to Home</a>
+</main></body></html>

@@ -1,0 +1,20 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Upload — FreeSee</title><link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"></head>
+<body>
+<header class="topbar"><a class="brand" href="/"><span class="play">▶</span> FreeSee</a><nav><a href="/">Home</a></nav></header>
+<main class="form-page">
+<div class="form-card">
+<h1>Upload a video</h1><p>Add a video to your FreeSee library.</p>
+{% if error %}<div class="error">{{ error }}</div>{% endif %}
+<form method="post" enctype="multipart/form-data">
+<label>Title<input name="title" required placeholder="Video title"></label>
+<label>Description<textarea name="description" rows="4" placeholder="Short description"></textarea></label>
+<label>Category<select name="category">
+<option>Movies</option><option>Series</option><option>Action</option><option>Comedy</option><option>Drama</option><option>Sci-Fi</option><option>General</option>
+</select></label>
+<label>Video file<input type="file" name="video" accept="video/*" required></label>
+<button class="btn primary" type="submit">Upload Video</button>
+<a class="btn secondary" href="/">Cancel</a>
+</form>
+</div></main></body></html>
